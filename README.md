@@ -100,6 +100,8 @@ root@ubuntu2204(mixmatch) $   TF_CPP_MIN_LOG_LEVEL=3 TF_DETERMINISTIC_OPS=1 PYTH
 ... Takes on the order of many hours complete ...
 ```
 
+When running the drift classifier on multiple datasets, we recommend to name data and results folders within `~/mixmatch/deeplearning/mixmatch_drift_classifier` explicitely after their respective experiment/dataset/purpose.
+
 For any of these high-level steps, you can always check the produced logs:
 ```bash
 root@ubuntu2204(mixmatch) $   cd ~/mixmatch/mixmatch_drift_classifier
@@ -117,6 +119,15 @@ root@ubuntu2204(mixmatch) $   TF_CPP_MIN_LOG_LEVEL=3 TF_DETERMINISTIC_OPS=1 PYTH
 ... Takes on the order of some hours to complete ...
 ```
 
+For the special case of the `two-to-one` experiment that is based on the `baseline` dataset, we start from the `baseline`-trained model and instruct the model at inference time to build and analyze the `two-to-one` dataset ad-hoc in the following way:
+```bash
+root@ubuntu2204(base) $   conda activate mixmatch
+root@ubuntu2204(mixmatch) $   tmux
+root@ubuntu2204(mixmatch) $   cd ~/mixmatch/mixmatch_drift_classifier
+root@ubuntu2204(mixmatch) $   TF_CPP_MIN_LOG_LEVEL=3 TF_DETERMINISTIC_OPS=1 PYTHONHASHSEED=0 python get_scores.py ./data/A_BASELINE_DATA_FOLDER/ ./results/A_BASELINE_RESULTS_FOLDER/ --two2one_case1   # Semi-matched case, use '--two2one_case2' instead for the unmatched setting
+... Takes on the order of some hours to complete ...
+```
+
 
 ## Calculate ROC Scores
 
@@ -125,5 +136,14 @@ root@ubuntu2204(base) $   conda activate mixmatch
 root@ubuntu2204(mixmatch) $   tmux
 root@ubuntu2204(mixmatch) $   cd ~/mixmatch/mixmatch_drift_classifier
 root@ubuntu2204(mixmatch) $   TF_CPP_MIN_LOG_LEVEL=3 TF_DETERMINISTIC_OPS=1 PYTHONHASHSEED=0 python calculate_roc.py ./results/latest/
+... Takes on the order of 1 hour to complete ...
+```
+
+For the special case of the `two-to-one` experiment, run:
+```bash
+root@ubuntu2204(base) $   conda activate mixmatch
+root@ubuntu2204(mixmatch) $   tmux
+root@ubuntu2204(mixmatch) $   cd ~/mixmatch/mixmatch_drift_classifier
+root@ubuntu2204(mixmatch) $   TF_CPP_MIN_LOG_LEVEL=3 TF_DETERMINISTIC_OPS=1 PYTHONHASHSEED=0 python calculate_roc.py ./results/A_BASELINE_RESULTS_FOLDER/ --two2one
 ... Takes on the order of 1 hour to complete ...
 ```
