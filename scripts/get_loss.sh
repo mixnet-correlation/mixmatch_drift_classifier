@@ -7,7 +7,7 @@
 # Example invocation:
 #   user@machine $   ./get_loss.sh results/exp01/train.log results/exp01/loss.csv
 
-# Previos command:
+# Previous command:
 # grep "Best" $1 | grep drift | cut -d' ' -f10,15 > $2
 
 # Updated command:
