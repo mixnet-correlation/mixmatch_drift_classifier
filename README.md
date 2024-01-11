@@ -82,8 +82,8 @@ root@ubuntu2204(mixmatch) $   tree
 
 Exemplarily for dataset `baseline`, we go through the steps parsing, training, evaluating, and score calculating that make up the process of analyzing a dataset with this classifier. Follow similar steps for the remaining datasets.
 ```bash
+root@ubuntu2204(base) $   tmux
 root@ubuntu2204(base) $   conda activate mixmatch
-root@ubuntu2204(mixmatch) $   tmux
 root@ubuntu2204(mixmatch) $   cd ~/mixmatch/mixmatch_drift_classifier
 root@ubuntu2204(mixmatch) $   python parse.py ../datasets/baseline --delaymatpath ../delay_matrices/baseline --experiment 1
 ... Takes at least 20min to complete ...
@@ -93,8 +93,8 @@ root@ubuntu2204(mixmatch) $   python parse.py ../datasets/baseline --delaymatpat
 ## Train on Parsed Dataset
 
 ```bash
+root@ubuntu2204(base) $   tmux
 root@ubuntu2204(base) $   conda activate mixmatch
-root@ubuntu2204(mixmatch) $   tmux
 root@ubuntu2204(mixmatch) $   cd ~/mixmatch/mixmatch_drift_classifier
 root@ubuntu2204(mixmatch) $   TF_CPP_MIN_LOG_LEVEL=3 TF_DETERMINISTIC_OPS=1 PYTHONHASHSEED=0 python train.py
 ... Takes on the order of many hours complete ...
@@ -112,8 +112,8 @@ root@ubuntu2204(mixmatch) $   ls -lahtr ./results/latest/
 ## Evaluate a Trained Model
 
 ```bash
+root@ubuntu2204(base) $   tmux
 root@ubuntu2204(base) $   conda activate mixmatch
-root@ubuntu2204(mixmatch) $   tmux
 root@ubuntu2204(mixmatch) $   cd ~/mixmatch/mixmatch_drift_classifier
 root@ubuntu2204(mixmatch) $   TF_CPP_MIN_LOG_LEVEL=3 TF_DETERMINISTIC_OPS=1 PYTHONHASHSEED=0 python get_scores.py ./data/latest/ ./results/latest/
 ... Takes on the order of some hours to complete ...
@@ -121,8 +121,8 @@ root@ubuntu2204(mixmatch) $   TF_CPP_MIN_LOG_LEVEL=3 TF_DETERMINISTIC_OPS=1 PYTH
 
 For the special case of the `two-to-one` experiment that is based on the `baseline` dataset, we start from the `baseline`-trained model and instruct the model at inference time to build and analyze the `two-to-one` dataset ad-hoc in the following way:
 ```bash
+root@ubuntu2204(base) $   tmux
 root@ubuntu2204(base) $   conda activate mixmatch
-root@ubuntu2204(mixmatch) $   tmux
 root@ubuntu2204(mixmatch) $   cd ~/mixmatch/mixmatch_drift_classifier
 root@ubuntu2204(mixmatch) $   TF_CPP_MIN_LOG_LEVEL=3 TF_DETERMINISTIC_OPS=1 PYTHONHASHSEED=0 python get_scores.py ./data/A_BASELINE_DATA_FOLDER/ ./results/A_BASELINE_RESULTS_FOLDER/ --two2one_case1   # Semi-matched case, use '--two2one_case2' instead for the unmatched setting
 ... Takes on the order of some hours to complete ...
@@ -132,8 +132,8 @@ root@ubuntu2204(mixmatch) $   TF_CPP_MIN_LOG_LEVEL=3 TF_DETERMINISTIC_OPS=1 PYTH
 ## Calculate ROC Scores
 
 ```bash
+root@ubuntu2204(base) $   tmux
 root@ubuntu2204(base) $   conda activate mixmatch
-root@ubuntu2204(mixmatch) $   tmux
 root@ubuntu2204(mixmatch) $   cd ~/mixmatch/mixmatch_drift_classifier
 root@ubuntu2204(mixmatch) $   TF_CPP_MIN_LOG_LEVEL=3 TF_DETERMINISTIC_OPS=1 PYTHONHASHSEED=0 python calculate_roc.py ./results/latest/
 ... Takes on the order of 1 hour to complete ...
@@ -141,8 +141,8 @@ root@ubuntu2204(mixmatch) $   TF_CPP_MIN_LOG_LEVEL=3 TF_DETERMINISTIC_OPS=1 PYTH
 
 For the special case of the `two-to-one` experiment, run:
 ```bash
+root@ubuntu2204(base) $   tmux
 root@ubuntu2204(base) $   conda activate mixmatch
-root@ubuntu2204(mixmatch) $   tmux
 root@ubuntu2204(mixmatch) $   cd ~/mixmatch/mixmatch_drift_classifier
 root@ubuntu2204(mixmatch) $   TF_CPP_MIN_LOG_LEVEL=3 TF_DETERMINISTIC_OPS=1 PYTHONHASHSEED=0 python calculate_roc.py ./results/A_BASELINE_RESULTS_FOLDER/ --two2one
 ... Takes on the order of 1 hour to complete ...
